@@ -23,6 +23,10 @@ const AddNewUser = (req, res) => {
     return res
       .status(400)
       .json({ message: "Username, email and password required" });
+     const queryToFindUser = `SELECT * FROM users WHERE email="${email}"`;
+      db.query(queryToFindUser, (err, result) =>{
+        if (err) return res.status(500).json(err);
+        if (result.length !== 0) return res.status(406).json('There is already user with this email');
   const query = "INSERT INTO users SET ?";
   const user = {
     username,
@@ -34,6 +38,7 @@ const AddNewUser = (req, res) => {
     if (err) return res.status(500).json(err);
     res.status(201).json({ message: "New user created" });
   });
+});
 };
 
 const updateUser = (req, res) => {
