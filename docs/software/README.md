@@ -290,7 +290,7 @@ const getUser = (req, res) => {
   db.query(query, (err, result) => {
     if (err) return res.status(500).json(err);
     if (result.length === 0) return res.sendStatus(404);
-    res.status(200).json(result);
+    res.status(200).json(result[0]);
   });
 };
 
@@ -321,7 +321,9 @@ const updateUser = (req, res) => {
     .json({ message: "Username, email or password  required " });
     return
   }
-    
+  db.query(`SELECT * FROM users WHERE id=${req.params.id}`, (err, result) =>{
+    if (err) return res.status(500).json(err);
+    if (result.length === 0) return res.status(404).json('No user with this id');
   let query = "";
   if (username) {
     query = `UPDATE users SET username = '${req.body.username}' WHERE id = '${req.params.id}'`;
@@ -342,6 +344,7 @@ const updateUser = (req, res) => {
     });
   }
   res.status(200).json({ message: "User updated" });
+});
 };
 
 const deleteUser = (req, res) => {
