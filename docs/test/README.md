@@ -5,47 +5,40 @@
 ## Відображення всіх сутностей (GET запит)
 
 ### Запит і результат
-![image](https://user-images.githubusercontent.com/89345760/210155914-d3703859-9023-4d9d-b320-3f75d8815c02.png)
-
+![1](https://user-images.githubusercontent.com/89345760/210170816-0f5bc0da-db8b-4c38-baa8-2046eb485dfc.png)
 ## Додавання сутності (POST запит)
 ### Запит
-![image](https://user-images.githubusercontent.com/89345760/210155795-6ac51f1c-2f5b-4cd4-870e-beb09efceb5f.png)
+![2](https://user-images.githubusercontent.com/89345760/210170822-4135e801-7e57-441e-aace-93307e507226.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210155928-12370812-c84b-4296-94e2-939b7d71c796.png)
+![3](https://user-images.githubusercontent.com/89345760/210170826-b719f063-3867-4131-98bd-c8abb040d472.png)
 
 ## Cпроба додати сутність не передавши всі необхідні дані
 ### Запит
-![image](https://user-images.githubusercontent.com/89345760/210156087-1dd67eab-5ec6-4c04-b4fa-59b8fcfbebb9.png)
+![4](https://user-images.githubusercontent.com/89345760/210170829-30074343-82dd-4f20-8236-096945e61c1a.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210156101-502ce655-785d-4129-8eff-91adf15cc80f.png)
-
+![5](https://user-images.githubusercontent.com/89345760/210170832-1a82fb11-40bc-4732-bad1-af822bd66fd1.png)
 ### Запит
-![image](https://user-images.githubusercontent.com/89345760/210156349-914849d3-4f3c-4e16-9e26-ed45c4f40af3.png)
+![6](https://user-images.githubusercontent.com/89345760/210170835-d637f4b4-b3e8-4019-816d-163c785736a5.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210156353-9666d77f-1330-4c49-b6ab-c7057117a199.png)
-
+![7](https://user-images.githubusercontent.com/89345760/210170842-3923012b-7a10-4f81-8f0c-3aa1c122baeb.png)
 ### Запит
-![image](https://user-images.githubusercontent.com/89345760/210156391-2028cb3d-f956-4150-82ed-0630bcd86b53.png)
+![8](https://user-images.githubusercontent.com/89345760/210170930-943d5b64-9393-47d7-aaed-6495d9448023.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210156395-c0fa04db-692c-4a85-9691-0a3c28437b2d.png)
-
+![9](https://user-images.githubusercontent.com/89345760/210170937-074489f2-2a64-4d26-b475-8f7eb6b035fb.png)
 ## Отримання певної сутності по id (GET запит)
 ### Запит і результат
-![image](https://user-images.githubusercontent.com/89345760/210157672-7269c7e0-151b-4fb1-95fa-c046cba4a338.png)
-
+![10](https://user-images.githubusercontent.com/89345760/210170942-33d9f9d7-8f79-4909-8885-bf436b9b23f7.png)
 ## Оновлення певної сутності по id (PUT запит)
 ### Запит 
-![image](https://user-images.githubusercontent.com/89345760/210157842-7f571b15-e6cf-469a-97b2-4484bc598bd3.png)
+![11](https://user-images.githubusercontent.com/89345760/210170946-96cae617-4616-4c61-987d-47a96ab3f052.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210157869-95b2b116-70e3-4e0e-804b-4c41dafe0d08.png)
-
+![12](https://user-images.githubusercontent.com/89345760/210170954-aee45e42-5ea0-4bc9-9e0e-84be4ec84b34.png)
 
 ## Видалення певної сутності по id (DELETE запит)
 ### Запит 
-![image](https://user-images.githubusercontent.com/89345760/210158011-5d96b1c6-f3e8-44d6-bfa8-6649a0978779.png)
+![13](https://user-images.githubusercontent.com/89345760/210170966-6ea7170b-cb17-41b9-818b-7f2c087393a0.png)
 ### Результат
-![image](https://user-images.githubusercontent.com/89345760/210158026-6ec0257f-2aa4-4dea-a07f-c87d37b59f8e.png)
-
+![14](https://user-images.githubusercontent.com/89345760/210170971-49825091-98c8-40f4-be02-fc6206fbd33d.png)
 ## Спроба видалити певної сутності по id якого не існує 
 ### Запит 
-![image](https://user-images.githubusercontent.com/89345760/210158067-0fb3c2e9-802b-40d7-99e4-c06285141953.png)
+![15](https://user-images.githubusercontent.com/89345760/210170975-cfbac9af-368f-4eee-9f84-f9ab3ad88dd9.png)
