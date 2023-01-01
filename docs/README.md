@@ -16,7 +16,7 @@ _студент 2-го курсу, групи ІМ-13_<span padding-right:5em></
 
 _студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[Михайло ЧІРОЗІДІ](https://t.me/poor_boy)**
 
-_студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[Владислав НЕУМТИИЙ](https://t.me/Snare295)**
+_студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[Владислав НЕУМИТИЙ](https://t.me/Snare295)**
 
 _студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[Валентин ПЕРВЄЄВ](https://t.me/nolove_valik)**
 
