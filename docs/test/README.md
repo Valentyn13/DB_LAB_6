@@ -15,6 +15,10 @@
 ![3](https://user-images.githubusercontent.com/89345760/210170826-b719f063-3867-4131-98bd-c8abb040d472.png)
 
 
+## Спроба додавання сутності з email, що вже існує
+![18](https://user-images.githubusercontent.com/89345760/210174836-86d2a4eb-7a45-4150-ab4f-c19d0eda8a5c.png)
+
+
 ## Cпроба додати сутність не передавши всі необхідні дані
 ### Запит
 ![4](https://user-images.githubusercontent.com/89345760/210170829-30074343-82dd-4f20-8236-096945e61c1a.png)
