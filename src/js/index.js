@@ -1,14 +1,15 @@
-const db = require('./config/db_connection');
 const express = require('express');
+const db = require('./config/db_connection')
+
+const PORT = 3001;
 const app = express();
-
-const PORT = 3500;
-
 app.use(express.json());
 
-app.use('/api', require('./routes/apiRoute'));
+app.use('/api',require('./routes/routes'))
 
-// db.query('INSERT INTO role SET ?', {id: 1, name: 'Respondent'});
-// db.query('INSERT INTO role SET ?', {id: 2, name: 'Interviewer'});
+app.get('/', (req, res) => {
+    res.send('OK')
+})
 
-db.connect(() => app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)));
+
+db.connect(() => app.listen(PORT,() => console.log(`Server is running on port ${PORT}`)))

@@ -229,44 +229,50 @@ COMMIT;
 ```js
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
+const db =  mysql.createConnection({
+    user: 'Valentyn',
     host: 'localhost',
-    user: 'root',
-    password: 'Rfyfky11*',
-    database: 'mydb'
-});
+    password: '123890',
+    database: 'mydb',
+})
 
 module.exports = db;
 ```
 ## Кореневий файл серверу
 
 ```js
-const db = require('./config/db_connection');
 const express = require('express');
+const db = require('./config/db_connection')
+
+const PORT = 3001;
 const app = express();
-
-const PORT = 3500;
-
 app.use(express.json());
 
-app.use('/api', require('./routes/apiRoute'));
+app.use('/api',require('./routes/routes'))
 
-db.connect(() => app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)));
+app.get('/', (req, res) => {
+    res.send('OK')
+})
+
+
+db.connect(() => app.listen(PORT,() => console.log(`Server is running on port ${PORT}`)))
 ```
 
 ##  Файл з роутером
 
  ```js
- const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { getAllUsers, AddNewUser, getUser, updateUser, deleteUser } = require("../controllers/apiController");
-
+const db = require("./../config/db_connection")  
+const {getAllQuizes, getQuizById, addNewQuiz, deleteQuiz, updateQuiz}  = require('../controllers/controllers') 
+let count = 2;
 router
-  .get("/users", getAllUsers)
-  .get("/user/:id", getUser)
-  .post("/user", AddNewUser)
-  .put("/user/:id", updateUser)
-  .delete("/user/:id", deleteUser);
+    .get("/quizes",getAllQuizes)
+    .get("/quizes/:id",getQuizById)
+    .post("/quizes",addNewQuiz)
+    .put("/quizes/:id",updateQuiz)
+    .delete("/quizes/:id",deleteQuiz)
+   
 
 module.exports = router;
 
@@ -275,96 +281,107 @@ module.exports = router;
 ##  Файл контролерів для обробки запитів
 
 ```js
-const db = require("../config/db_connection");
+const db = require("./../config/db_connection")  
 
-const getAllUsers = (req, res) => {
-  const query = "SELECT * FROM users";
-  db.query(query, (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.status(200).json(result);
-  });
+const getAllQuizes = (req, res) => {
+    const query = "SELECT * FROM quizes";
+    db.query(query, (err, result) => {
+        if (err) res.status(500).json(err);
+        res.status(200).json(result) 
+    });
 };
 
-const getUser = (req, res) => {
-  const query = `SELECT * FROM users WHERE id=${req.params.id}`;
-  db.query(query, (err, result) => {
-    if (err) return res.status(500).json(err);
-    if (result.length === 0) return res.sendStatus(404);
-    res.status(200).json(result[0]);
-  });
-};
+const getQuizById = (req,res) => {
+    const query = `SELECT * FROM quizes WHERE id=${req.params.id}`;
+    db.query(query, (err, result) => {
+        if (err) res.status(500).json(err);
+        if(result.length === 0) res.sendStatus(404)
+        res.status(200).json(result[0])
+    })
+}
 
-const AddNewUser = (req, res) => {
-  const { username, email, password, role_id } = req.body;
-  if (!(username && email && password))
-    return res
-      .status(400)
-      .json({ message: "Username, email and password required" });
-     const queryToFindUser = `SELECT * FROM users WHERE email="${email}"`;
-      db.query(queryToFindUser, (err, result) =>{
+const addNewQuiz = (req,res) => {
+    const {name, title, description, end_date} = req.body;
+    if(!(name && title && description && end_date)) {
+        return res
+            .status(400)
+            .json({message:'You need to fill all fields: name, title, description, end_date'})
+    }
+    const query = "INSERT INTO quizes SET ?";
+    const uuid = new Date().getTime().toString().slice(-4)
+    const quiz = {
+        id:uuid,
+        name,
+        title,
+        description,
+        end_date
+    }
+    db.query(query,quiz, err => {
+        if (err) res.status(500).json(err)
+        res.status(201).json({message:'New quiz created'})
+    })
+}
+
+const updateQuiz = (req, res) => {
+    const {name, title, description, end_date} = req.body;
+    if(!(name||title||description||end_date)) {
+        res 
+            .status(400)
+            .json({message:'At least one field required'})
+        return    
+    }
+    const query = `SELECT * FROM quizes WHERE id=${req.params.id}`
+    
+    db.query(query, (err, result) => {
+        if (err) return res.status(500).json(err)
+        if (result.length === 0) return res.status(404).json({message:"No quizes with this id"})
+        let putQuery = '';
+        if(name) {
+            putQuery = `UPDATE quizes SET name='${name}' WHERE id='${req.params.id}'`;
+            db.query(putQuery,(err, res) => {
+                if(err) return res.status(500).json(err)
+            })
+        }
+
+        if(title){
+            putQuery = `UPDATE quizes SET title='${title}' WHERE id='${req.params.id}'`
+            db.query(putQuery,(err, res) => {
+                if(err) return res.status(500).json(err)
+            })
+        } 
+
+        if(description){
+            putQuery = `UPDATE quizes SET description='${description}' WHERE id='${req.params.id}'`
+            db.query(putQuery,(err, res) => {
+                if(err) return res.status(500).json(err)
+            })
+        } 
+
+        if(end_date){
+            putQuery = `UPDATE quizes SET end_date='${end_date}' WHERE id='${req.params.id}'`
+            db.query(putQuery,(err, res) => {
+                if(err) return res.status(500).json(err)
+            })
+        }
+        
+        res.status(200).json({message:"Quiz updated"})
+    })
+}
+
+const deleteQuiz = (req, res) => {
+    const query = `DELETE FROM quizes WHERE id=${req.params.id}`
+    db.query(`SELECT * FROM quizes WHERE id=${req.params.id}`, (err, result) => {
         if (err) return res.status(500).json(err);
-        if (result.length !== 0) return res.status(406).json('There is already user with this email');
-  const query = "INSERT INTO users SET ?";
-  const user = {
-    username,
-    email,
-    password,
-    role_id: role_id || 1,
-  };
-  db.query(query, user, (err) => {
-    if (err) return res.status(500).json(err);
-    res.status(201).json({ message: "New user created" });
-  });
-});
-};
+        if(result.length === 0) return res.status(404).json({message:"NOT FOUND!"})
+    })
+    db.query(query,(err, result) => {
+        if (err) return res.status(500).json(err)
+        return res.status(200).json({message:'Quiz deleted'})
+    })
+}
 
-const updateUser = (req, res) => {
-  const { username, email, password } = req.body;
-  if (!(username || email || password)){
-    res
-    .status(400)
-    .json({ message: "Username, email or password  required " });
-    return
-  }
-  db.query(`SELECT * FROM users WHERE id=${req.params.id}`, (err, result) =>{
-    if (err) return res.status(500).json(err);
-    if (result.length === 0) return res.status(404).json('No user with this id');
-  let query = "";
-  if (username) {
-    query = `UPDATE users SET username = '${req.body.username}' WHERE id = '${req.params.id}'`;
-    db.query(query, (err) => {
-      if (err) return res.status(500).json(err);
-    });
-  }
-  if (email) {
-    query = `UPDATE users SET email = '${req.body.email}' WHERE id = '${req.params.id}'`;
-    db.query(query, (err) => {
-      if (err) return res.status(500).json(err);
-    });
-  }
-  if (password) {
-    query = `UPDATE users SET password = '${req.body.password}' WHERE id = '${req.params.id}'`;
-    db.query(query, (err) => {
-      if (err) return res.status(500).json(err);
-    });
-  }
-  res.status(200).json({ message: "User updated" });
-});
-};
 
-const deleteUser = (req, res) => {
-  const query = `DELETE FROM users WHERE id=${req.params.id}`;
-  db.query(`SELECT * FROM users WHERE id=${req.params.id}`, (err, result) =>{
-    if (err) return res.status(500).json(err);
-    if (result.length === 0) return res.status(404).json('No user with this id');
-  db.query(query, (err, result) => {
-    if (err) return res.status(500).json(err);
-    return res.status(200).json({ message: "User deleted" });
-  });
-  });
-};
-
-module.exports = { getAllUsers, AddNewUser, getUser, updateUser, deleteUser };
+module.exports = {getAllQuizes, getQuizById, addNewQuiz, deleteQuiz, updateQuiz};
 ```
 
 
