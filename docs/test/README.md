@@ -3,26 +3,25 @@
 Використовувалося розширення Thunder Client  для Visual Studio Code (аналог Postman)
 
 
-## Відображення всіх сутностей (GET запит)
-### Запит і результат
+## Gеt запит усіх записів
 ![1](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/1.png)
-
 
 ## Post запит
 ![2](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/2.png)
 
-## Get by id
+## Get запит за id
 ![3](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/3.png)
 
-## Put by id
+## Put запит за id
 ![4](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/4.png)
 
-##
+## Перевірка запиту
 ![4_1](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/4_1.png)
 
-## Delete
+## Delete запит за id
 ![5](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/5.png)
-##
+
+## Перевірка запиту
 ![5_1](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/5_1.png)
 
 ## Запит на не існуючий  quiz
