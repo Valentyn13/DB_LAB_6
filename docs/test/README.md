@@ -5,7 +5,8 @@
 
 ## Відображення всіх сутностей (GET запит)
 ### Запит і результат
-![1](https://user-images.githubusercontent.com/89345760/210170816-0f5bc0da-db8b-4c38-baa8-2046eb485dfc.png)
+![1](https://github.com/Valentyn13/DB_LAB_6/blob/master/docs/test/1.png)
+
 
 
 ## Додавання сутності (POST запит)
