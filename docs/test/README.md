@@ -34,10 +34,10 @@
 ![8](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/master/docs/test/8.png)
 
 ## Put запит на оновлення деяких полів
-![9](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/blob/master/docs/test/9.png)
+![9](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/master/docs/test/9.png)
 
 ## Put запит без body
-![10](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/blob/master/docs/test/10.png)
+![10](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/master/docs/test/10.png)
 
 ## Delete  запит на не існуючий quiz
-![11](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/blob/master/docs/test/11.png)
+![11](https://raw.githubusercontent.com/Valentyn13/DB_LAB_6/master/docs/test/11.png)
