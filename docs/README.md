@@ -8,7 +8,7 @@ footer: "ECL 2.0 Licensed | Copyright © [2022] [Нестеров Дмитро]"
 
 **Виконали:**
 
-_студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[Валентин ПЕРВЄЄВ](https://t.me/nolove_valik)**
+_студент 2-го курсу, групи ІМ-13_<span padding-right:5em></span> **[ Євгеній ПЕРВЄЄВ](https://t.me/Ch_Bronsonn)** 
 
 
 
