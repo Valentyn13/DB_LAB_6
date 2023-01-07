@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Реалізація інформаційного та програмного забезпечення | 1. Система організації та управління опитуваннями експертів</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/DB_LAB_6/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Курсова робота з дисципліни &quot;Бази даних&quot;">
+    
+    <link rel="preload" href="/DB_LAB_6/assets/css/0.styles.e006b512.css" as="style"><link rel="preload" href="/DB_LAB_6/assets/js/app.d827471d.js" as="script"><link rel="preload" href="/DB_LAB_6/assets/js/2.4c8f18e9.js" as="script"><link rel="preload" href="/DB_LAB_6/assets/js/22.42e6baa9.js" as="script"><link rel="prefetch" href="/DB_LAB_6/assets/js/10.e3053f2d.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/11.b9dde3ce.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/12.38309e17.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/13.4ad5c7a2.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/14.a1b6aaae.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/15.12a3f435.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/16.2b14d568.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/17.1e43b37d.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/18.d26aecda.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/19.4c5a4109.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/20.4b63ce71.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/21.4d9eafe9.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/23.e8b58770.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/24.9eb16dee.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/25.a24d1f84.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/26.6eebb66c.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/3.266de04a.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/4.59a2c039.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/5.ab9cf220.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/6.efd0428a.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/7.6162a64d.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/8.dd761899.js"><link rel="prefetch" href="/DB_LAB_6/assets/js/9.5fec2574.js">
+    <link rel="stylesheet" href="/DB_LAB_6/assets/css/0.styles.e006b512.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/DB_LAB_6/" class="home-link router-link-active"><!----> <span class="site-name">1. Система організації та управління опитуваннями експертів</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/DB_LAB_6/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/Valentyn13/DB_LAB_6" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/DB_LAB_6/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/Valentyn13/DB_LAB_6" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/DB_LAB_6/intro/" class="sidebar-link">Вступ</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/DB_LAB_6/requirements/" class="sidebar-heading clickable"><span>Розроблення загальних вимог до системи</span> <span class="arrow right"></span></a> <!----></section></li><li><a href="/DB_LAB_6/use%20cases/" class="sidebar-link">Розроблення вимог до функціональности системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_1-діаграма-прецедентів" class="sidebar-link">1) Діаграма прецедентів:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-1-1-зображена-ієрархія-прецедентів-та-іх-основні-можливості" class="sidebar-link">На рис. 1.1 зображена ієрархія прецедентів та їх основні можливості.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_2-схеми-використання-для-неавтентифікованого-користувача" class="sidebar-link">2) Схеми використання для неавтентифікованого користувача:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-2-1-зображені-усі-можливості-неавтентифікованого-користувача" class="sidebar-link">На рис. 2.1 зображені усі можливості неавтентифікованого користувача.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_3-схеми-використання-для-авторизованого-користувача" class="sidebar-link">3) Схеми використання для авторизованого користувача:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-3-1-зображені-усі-можливості-авторизованого-користувача" class="sidebar-link">На рис. 3.1 зображені усі можливості авторизованого користувача.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_4-схеми-використання-для-інтерв-юера" class="sidebar-link">4) Схеми використання для інтерв'юера:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-4-1-зображені-усі-можливості-інтерв-юера" class="sidebar-link">На рис. 4.1 зображені усі можливості інтерв'юера.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_5-сценаріі-використання-для-незареєстрованого-користувача" class="sidebar-link">5) Сценарії використання для незареєстрованого користувача:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-5-1-зображено-сценаріи-реєстраціі-користувача" class="sidebar-link">На рис. 5.1 зображено сценарій реєстрації користувача.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-5-2-зображено-сценаріи-авторизаціі-користувача" class="sidebar-link">На рис. 5.2 зображено сценарій авторизації користувача.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_6-сценаріі-використання-для-інтерв-юерів" class="sidebar-link">6) Сценарії використання для інтерв'юерів:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-6-1-зображено-сценаріи-створення-опитування" class="sidebar-link">На рис. 6.1 зображено сценарій створення опитування.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-6-2-зображено-сценаріи-редагування-опитування" class="sidebar-link">На рис. 6.2 зображено сценарій редагування опитування.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-6-3-зображено-сценаріи-видалення-опитування" class="sidebar-link">На рис. 6.3 зображено сценарій видалення опитування.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-6-4-зображено-сценаріи-отримання-результатів-опитування" class="sidebar-link">На рис. 6.4 зображено сценарій отримання результатів опитування.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_7-сценаріі-використання-для-зареєстрованих-користувачів" class="sidebar-link">7) Сценарії використання для зареєстрованих користувачів:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-7-1-зображено-сценаріи-відправлення-заповненоі-форми" class="sidebar-link">На рис. 7.1 зображено сценарій відправлення заповненої форми.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-7-2-зображено-сценаріи-видалення-профілю-користувача" class="sidebar-link">На рис. 7.2 зображено сценарій видалення профілю користувача.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-7-3-зображено-сценаріи-отримання-опитування" class="sidebar-link">На рис. 7.3 зображено сценарій отримання опитування.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_8-сценаріі-використання-для-керування-групами" class="sidebar-link">8) Сценарії використання для керування групами:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-8-1-зображено-сценаріи-створення-групи" class="sidebar-link">На рис. 8.1 зображено сценарій створення групи.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-8-2-зображено-сценаріи-запрошення-користувача-до-групи" class="sidebar-link">На рис. 8.2 зображено сценарій запрошення користувача до групи.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-8-3-зображено-сценаріи-видалення-групи" class="sidebar-link">На рис. 8.3 зображено сценарій видалення групи.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-8-4-зображено-сценаріи-видалення-користувача-з-групи" class="sidebar-link">На рис. 8.4 зображено сценарій видалення користувача з групи.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-8-5-зображено-сценаріи-отримання-інформаціі-про-групу" class="sidebar-link">На рис. 8.5 зображено сценарій отримання інформації про групу.</a></li></ul></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#_9-сценаріі-виключних-ситуаціи" class="sidebar-link">9) Сценарії виключних ситуацій:</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-9-1-зображено-сценаріи-вводу-некоректних-даних-при-реєстраціі-або-авторизаціі" class="sidebar-link">На рис. 9.1 зображено сценарій вводу некоректних даних при реєстрації або авторизації.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-9-2-зображено-сценаріи-додавання-неіснуючого-користувача" class="sidebar-link">На рис. 9.2 зображено сценарій додавання неіснуючого користувача.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-9-3-зображено-сценаріи-відправлення-форми-з-пустими-полями" class="sidebar-link">На рис. 9.3 зображено сценарій відправлення форми з пустими полями.</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/use%20cases/#на-рис-9-4-зображено-сценаріи-створення-пустого-опитування" class="sidebar-link">На рис. 9.4 зображено сценарій створення пустого опитування.</a></li></ul></li></ul></li><li><a href="/DB_LAB_6/design/" class="sidebar-link">Проектування інформаційного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/design/#модель-бізнес-об-єктів" class="sidebar-link">модель бізнес-об'єктів</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/design/#er-модель" class="sidebar-link">ER-модель</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/design/#реляціина-схема" class="sidebar-link">реляційна схема</a></li></ul></li><li><a href="/DB_LAB_6/software/" aria-current="page" class="active sidebar-link">Реалізація інформаційного та програмного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/software/#sql-скрипт-для-створення-на-початкового-наповнення-бази-даних" class="sidebar-link">SQL-скрипт для створення на початкового наповнення бази даних</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/software/#фаил-підключення-до-бази-даних" class="sidebar-link">Файл підключення до бази даних</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/software/#кореневии-фаил-серверу" class="sidebar-link">Кореневий файл серверу</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/software/#фаил-з-роутером" class="sidebar-link">Файл з роутером</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/software/#фаил-контролерів-для-обробки-запитів" class="sidebar-link">Файл контролерів для обробки запитів</a></li></ul></li><li><a href="/DB_LAB_6/test/" class="sidebar-link">Тестування працездатності системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#додавання-новоі-групи" class="sidebar-link">Додавання нової групи</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#pапит-усіх-записів-в-таблиці-groups" class="sidebar-link">Pапит усіх записів в таблиці groups</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#видалення-групи-по-id" class="sidebar-link">Видалення групи по id</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#помилка-при-видаленні" class="sidebar-link">Помилка при видаленні</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#редагування-групи" class="sidebar-link">Редагування групи</a></li><li class="sidebar-sub-header"><a href="/DB_LAB_6/test/#запит-на-отримання-всіх-юзерів-в-группі-по-id" class="sidebar-link">Запит на отримання всіх юзерів в группі по id</a></li></ul></li><li><a href="/DB_LAB_6/conclusion/" class="sidebar-link">Висновки</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="реалізація-інформаціиного-та-програмного-забезпечення"><a href="#реалізація-інформаціиного-та-програмного-забезпечення" class="header-anchor">#</a> Реалізація інформаційного та програмного забезпечення</h1> <p>В рамках проекту розробляється:</p> <h2 id="sql-скрипт-для-створення-на-початкового-наповнення-бази-даних"><a href="#sql-скрипт-для-створення-на-початкового-наповнення-бази-даних" class="header-anchor">#</a> SQL-скрипт для створення на початкового наповнення бази даних</h2> <div class="language- extra-class"><pre class="language-text"><code>-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`role` (
+  `id` INT NOT NULL,
+  `name` ENUM('Respondent', 'Interviewer') NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `role_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `role_id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_users_role1_idx` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `fk_users_role1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `mydb`.`role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`quizes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`quizes` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `end_date` DATE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`questions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`questions` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(45) NOT NULL,
+  `help_text` VARCHAR(45) NOT NULL,
+  `required` TINYINT NOT NULL,
+  `quizes_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `quizes_id`),
+  INDEX `fk_questions_quizes1_idx` (`quizes_id` ASC) VISIBLE,
+  CONSTRAINT `fk_questions_quizes1`
+    FOREIGN KEY (`quizes_id`)
+    REFERENCES `mydb`.`quizes` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`options`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`options` (
+  `id` INT NOT NULL,
+  `text` VARCHAR(45) NOT NULL,
+  `iscorrect` TINYINT NULL,
+  `questions_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `questions_id`),
+  INDEX `fk_options_questions1_idx` (`questions_id` ASC) VISIBLE,
+  CONSTRAINT `fk_options_questions1`
+    FOREIGN KEY (`questions_id`)
+    REFERENCES `mydb`.`questions` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`results`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`results` (
+  `id` INT NOT NULL,
+  `options_id` INT NOT NULL,
+  `users_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `options_id`, `users_id`),
+  INDEX `fk_results_options1_idx` (`options_id` ASC) VISIBLE,
+  INDEX `fk_results_users1_idx` (`users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_results_options1`
+    FOREIGN KEY (`options_id`)
+    REFERENCES `mydb`.`options` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_results_users1`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `mydb`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`State`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`State` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`actionType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`actionType` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`actions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`actions` (
+  `id` INT NOT NULL,
+  `actedAt` DATETIME NOT NULL,
+  `State_id` INT NOT NULL,
+  `actionType_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_actions_State1_idx` (`State_id` ASC) VISIBLE,
+  INDEX `fk_actions_actionType1_idx` (`actionType_id` ASC) VISIBLE,
+  CONSTRAINT `fk_actions_State1`
+    FOREIGN KEY (`State_id`)
+    REFERENCES `mydb`.`State` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_actions_actionType1`
+    FOREIGN KEY (`actionType_id`)
+    REFERENCES `mydb`.`actionType` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`groups`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`groups` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `creatorId` INT NOT NULL,
+  `actions_id` INT NOT NULL,
+  `users_id` INT NOT NULL,
+  `users_Roles_id` INT NOT NULL,
+  `quizes_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `actions_id`, `users_id`, `users_Roles_id`, `quizes_id`),
+  INDEX `fk_groups_actions1_idx` (`actions_id` ASC) VISIBLE,
+  INDEX `fk_groups_users1_idx` (`users_id` ASC, `users_Roles_id` ASC) VISIBLE,
+  INDEX `fk_groups_quizes1_idx` (`quizes_id` ASC) VISIBLE,
+  CONSTRAINT `fk_groups_actions1`
+    FOREIGN KEY (`actions_id`)
+    REFERENCES `mydb`.`actions` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_groups_users1`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `mydb`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_groups_quizes1`
+    FOREIGN KEY (`quizes_id`)
+    REFERENCES `mydb`.`quizes` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`role`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`role` (`id`, `name`) VALUES (1, 'Respondent');
+INSERT INTO `mydb`.`role` (`id`, `name`) VALUES (2, 'Interviewer');
+
+COMMIT;
+
+</code></pre></div><h1 id="restfull-сервіс-для-управління-даними"><a href="#restfull-сервіс-для-управління-даними" class="header-anchor">#</a> RESTfull сервіс для управління даними</h1> <h2 id="фаил-підключення-до-бази-даних"><a href="#фаил-підключення-до-бази-даних" class="header-anchor">#</a> Файл підключення до бази даних</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> mysql <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mysql'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> db <span class="token operator">=</span>  mysql<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">user</span><span class="token operator">:</span> <span class="token string">'Valentyn'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">'123890'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">database</span><span class="token operator">:</span> <span class="token string">'mydb'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> db<span class="token punctuation">;</span>
+</code></pre></div><h2 id="кореневии-фаил-серверу"><a href="#кореневии-фаил-серверу" class="header-anchor">#</a> Кореневий файл серверу</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> db <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./config/db_connection'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token constant">PORT</span> <span class="token operator">=</span> <span class="token number">3001</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'/api'</span><span class="token punctuation">,</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./routes/routes'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'OK'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+
+db<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token constant">PORT</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server is running on port </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">PORT</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="фаил-з-роутером"><a href="#фаил-з-роутером" class="header-anchor">#</a> Файл з роутером</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> express<span class="token punctuation">.</span><span class="token function">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> db <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../config/db_connection&quot;</span><span class="token punctuation">)</span>  
+<span class="token keyword">const</span> <span class="token punctuation">{</span>getAllQuizes<span class="token punctuation">,</span> getQuizById<span class="token punctuation">,</span> addNewQuiz<span class="token punctuation">,</span> deleteQuiz<span class="token punctuation">,</span> updateQuiz<span class="token punctuation">}</span>  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../controllers/controllers'</span><span class="token punctuation">)</span> 
+<span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+router
+   <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/quizes&quot;</span><span class="token punctuation">,</span>getAllQuizes<span class="token punctuation">)</span>
+   <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/quizes/:id&quot;</span><span class="token punctuation">,</span>getQuizById<span class="token punctuation">)</span>
+   <span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">&quot;/quizes&quot;</span><span class="token punctuation">,</span>addNewQuiz<span class="token punctuation">)</span>
+   <span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;/quizes/:id&quot;</span><span class="token punctuation">,</span>updateQuiz<span class="token punctuation">)</span>
+   <span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">&quot;/quizes/:id&quot;</span><span class="token punctuation">,</span>deleteQuiz<span class="token punctuation">)</span>
+  
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> router<span class="token punctuation">;</span>
+
+</code></pre></div><h2 id="фаил-контролерів-для-обробки-запитів"><a href="#фаил-контролерів-для-обробки-запитів" class="header-anchor">#</a> Файл контролерів для обробки запитів</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> db <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../config/db_connection&quot;</span><span class="token punctuation">)</span>  
+
+<span class="token keyword">const</span> <span class="token function-variable function">getAllQuizes</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> query <span class="token operator">=</span> <span class="token string">&quot;SELECT * FROM quizes&quot;</span><span class="token punctuation">;</span>
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">getQuizById</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span>res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> query <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT * FROM quizes WHERE id=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> res<span class="token punctuation">.</span><span class="token function">sendStatus</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span>
+        res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">addNewQuiz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span>res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span>name<span class="token punctuation">,</span> title<span class="token punctuation">,</span> description<span class="token punctuation">,</span> end_date<span class="token punctuation">}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>name <span class="token operator">&amp;&amp;</span> title <span class="token operator">&amp;&amp;</span> description <span class="token operator">&amp;&amp;</span> end_date<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> res
+            <span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'You need to fill all fields: name, title, description, end_date'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> query <span class="token operator">=</span> <span class="token string">&quot;INSERT INTO quizes SET ?&quot;</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> uuid <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> quiz <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">id</span><span class="token operator">:</span>uuid<span class="token punctuation">,</span>
+        name<span class="token punctuation">,</span>
+        title<span class="token punctuation">,</span>
+        description<span class="token punctuation">,</span>
+        end_date
+    <span class="token punctuation">}</span>
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span>quiz<span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">201</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'New quiz created'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">updateQuiz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span>name<span class="token punctuation">,</span> title<span class="token punctuation">,</span> description<span class="token punctuation">,</span> end_date<span class="token punctuation">}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>name<span class="token operator">||</span>title<span class="token operator">||</span>description<span class="token operator">||</span>end_date<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        res 
+            <span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'At least one field required'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>    
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> query <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT * FROM quizes WHERE id=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">&quot;No quizes with this id&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token keyword">let</span> putQuery <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            putQuery <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE quizes SET name='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' WHERE id='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+            db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>putQuery<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            putQuery <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE quizes SET title='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>title<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' WHERE id='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span>
+            db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>putQuery<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> 
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>description<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            putQuery <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE quizes SET description='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>description<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' WHERE id='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span>
+            db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>putQuery<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> 
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>end_date<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            putQuery <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE quizes SET end_date='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>end_date<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' WHERE id='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span>
+            db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>putQuery<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        
+        res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">&quot;Quiz updated&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">deleteQuiz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> query <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">DELETE FROM quizes WHERE id=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT * FROM quizes WHERE id=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">&quot;NOT FOUND!&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'Quiz deleted'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>getAllQuizes<span class="token punctuation">,</span> getQuizById<span class="token punctuation">,</span> addNewQuiz<span class="token punctuation">,</span> deleteQuiz<span class="token punctuation">,</span> updateQuiz<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Останнє оновлення:</span> <span class="time">1/3/2023, 6:56:38 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/DB_LAB_6/design/" class="prev">
+        Проектування інформаційного забезпечення
+      </a></span> <span class="next"><a href="/DB_LAB_6/test/">
+        Тестування працездатності системи
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/DB_LAB_6/assets/js/app.d827471d.js" defer></script><script src="/DB_LAB_6/assets/js/2.4c8f18e9.js" defer></script><script src="/DB_LAB_6/assets/js/22.42e6baa9.js" defer></script>
+  </body>
+</html>
